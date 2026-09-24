@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+environments/*/.venv/
+environments/*/.pixi/
+external/
+downloads/
+release/
+rebuilt/
+work/
+data/scib/raw/
+verification_report.csv

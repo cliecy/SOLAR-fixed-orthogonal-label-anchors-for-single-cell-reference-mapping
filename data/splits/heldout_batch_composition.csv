@@ -1,0 +1,16 @@
+dataset_id,heldout_batch,n_reference,n_query,n_celltypes_reference,n_celltypes_query,n_celltypes_shared,n_celltypes_query_only,fraction_query_cells_label_supported_by_reference
+immune_cell_human,10X,22779,10727,16,12,12,0,1.0
+immune_cell_human,Oetjen_A,30920,2586,16,16,16,0,1.0
+immune_cell_human,Villani,32484,1022,16,4,4,0,1.0
+lung_atlas,3,32010,462,17,10,10,0,1.0
+lung_atlas,4,28709,3763,17,12,12,0,1.0
+lung_atlas,B1,30332,2140,17,11,11,0,1.0
+pancreas,fluidigmc1,15744,638,14,13,13,0,1.0
+pancreas,inDrop2,14658,1724,14,14,14,0,1.0
+pancreas,inDrop3,12777,3605,14,14,14,0,1.0
+simulation_1,Batch1,9189,2908,7,6,6,0,1.0
+simulation_1,Batch3,9977,2120,7,5,5,0,1.0
+simulation_1,Batch6,11140,957,7,4,4,0,1.0
+simulation_2,Batch1Sub3,18108,1210,4,2,2,0,1.0
+simulation_2,Batch3Sub1,17388,1930,4,2,2,0,1.0
+simulation_2,Batch3Sub4,18833,485,4,1,1,0,1.0

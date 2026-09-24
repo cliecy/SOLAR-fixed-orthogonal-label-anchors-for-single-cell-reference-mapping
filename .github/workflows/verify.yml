@@ -1,0 +1,24 @@
+name: verify-paper-numbers
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy pyyaml scikit-learn matplotlib pytest anndata h5py
+      - run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: sha256sum -c MANIFEST.sha256
+      - run: python scripts/verify_paper_numbers.py --report verification_report.csv
+      - run: python -m pytest -q tests
+      - run: PYTHONPATH=src python scripts/audit_solar_numerics.py
+      - run: PYTHONPATH=src python examples/smoke_test.py
+      - run: python scripts/build_paper_figures.py --output-dir rebuilt/figures
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verification
+          path: |
+            verification_report.csv
+            rebuilt/figures

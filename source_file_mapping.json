@@ -1,0 +1,401 @@
+{
+  "analysis_revision": 3,
+  "analysis_source_manifest_sha256": "35a16bc244bc434660352b46dfa713e2bb2d1b155d6fd5232d794d0896584e70",
+  "analysis_source_role": "Immutable analysis revision 3 within release v1.2; independent of original execution source",
+  "files": [
+    {
+      "original_sha256": "e4a5d23b16a982cbc7d3f5ea27c7346505cb7f3246dd8e5dffebdf254b440df0",
+      "public_path": "src/SOLAR/__init__.py",
+      "published_sha256": "e4a5d23b16a982cbc7d3f5ea27c7346505cb7f3246dd8e5dffebdf254b440df0",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/__init__.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "4bfc0e974fbd078cfe566b6f04b1f18ab6611363710b2b36df02db128def2628",
+      "public_path": "src/SOLAR/_checkpoint.py",
+      "published_sha256": "4bfc0e974fbd078cfe566b6f04b1f18ab6611363710b2b36df02db128def2628",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/_checkpoint.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "555f80c5c68e2990ba4239ec3b16f20f3462bda81928ef182bc853d8713440e3",
+      "public_path": "src/SOLAR/_data.py",
+      "published_sha256": "555f80c5c68e2990ba4239ec3b16f20f3462bda81928ef182bc853d8713440e3",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/_data.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "81cc19572f1fb4f52bbdcb600eea02aa58e61a16f3f4cfbc63382b4f2c12570c",
+      "public_path": "src/SOLAR/_training.py",
+      "published_sha256": "81cc19572f1fb4f52bbdcb600eea02aa58e61a16f3f4cfbc63382b4f2c12570c",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/_training.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "71cd241663c39d332f8e50a2f92391bea84c2a695772760e8d0a5a06f39aaac4",
+      "public_path": "src/SOLAR/api.py",
+      "published_sha256": "71cd241663c39d332f8e50a2f92391bea84c2a695772760e8d0a5a06f39aaac4",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/api.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "3c1d0834db2e6720b1a17621920e838c910e17458a786eb1cc8624fe5e1dbee7",
+      "public_path": "src/SOLAR/benchmark/__init__.py",
+      "published_sha256": "3c1d0834db2e6720b1a17621920e838c910e17458a786eb1cc8624fe5e1dbee7",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/__init__.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "9e800428b022f633249b59769e8fd18225a78475ede2bc205eb92f1bec038f2e",
+      "public_path": "src/SOLAR/benchmark/adapter.py",
+      "published_sha256": "9e800428b022f633249b59769e8fd18225a78475ede2bc205eb92f1bec038f2e",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/adapter.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "d9b307e57fec026ac1ce4eadb973c5e4e190ee9cb06e3528362aecf878289900",
+      "public_path": "src/SOLAR/benchmark/cli.py",
+      "published_sha256": "d9b307e57fec026ac1ce4eadb973c5e4e190ee9cb06e3528362aecf878289900",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/cli.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "a27e3c9a286da3cdd36430f96fe46859a216b347edf5e6e271a47d167f8e4ce2",
+      "public_path": "src/SOLAR/benchmark/controls.py",
+      "published_sha256": "a27e3c9a286da3cdd36430f96fe46859a216b347edf5e6e271a47d167f8e4ce2",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/controls.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "dc8630a8b3b3c5486893cbf16550b4659f54a90cf9ac8216c1dd188e8ffb9823",
+      "public_path": "src/SOLAR/benchmark/splits.py",
+      "published_sha256": "dc8630a8b3b3c5486893cbf16550b4659f54a90cf9ac8216c1dd188e8ffb9823",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/splits.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "78607fb24467732df304e838c1a02744e054d1dabb243b1f2072f8e961df0dc5",
+      "public_path": "src/SOLAR/benchmark/variants.py",
+      "published_sha256": "78607fb24467732df304e838c1a02744e054d1dabb243b1f2072f8e961df0dc5",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/benchmark/variants.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "78039766d1662fb729cce176038675365b2d98fbbdd0c63c465af1fb8b90aaf3",
+      "public_path": "src/SOLAR/src/__init__.py",
+      "published_sha256": "78039766d1662fb729cce176038675365b2d98fbbdd0c63c465af1fb8b90aaf3",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/src/__init__.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "323c87b41f6d8f6c0ddac483019de0e6c964c45bf82da7bbe760057155ddd481",
+      "public_path": "src/SOLAR/src/anchor_model.py",
+      "published_sha256": "323c87b41f6d8f6c0ddac483019de0e6c964c45bf82da7bbe760057155ddd481",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/src/anchor_model.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "20dd6d30dca01e82b5c25b8245b48bcabdb179f79a2b1b93e4ae33b3f1da7027",
+      "public_path": "src/SOLAR/src/loss.py",
+      "published_sha256": "20dd6d30dca01e82b5c25b8245b48bcabdb179f79a2b1b93e4ae33b3f1da7027",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/src/loss.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "d950119e92ec7092a987384154fb5978d11401a7e970e9ee899bede8b54d79c3",
+      "public_path": "src/scib_benchmark/__init__.py",
+      "published_sha256": "d950119e92ec7092a987384154fb5978d11401a7e970e9ee899bede8b54d79c3",
+      "source_path": "source_snapshot://src/scib_benchmark/__init__.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "d7f4578d6e452c10af588606798bb96e201859800a72844e4bf016738688f458",
+      "public_path": "src/scib_benchmark/artifacts.py",
+      "published_sha256": "d7f4578d6e452c10af588606798bb96e201859800a72844e4bf016738688f458",
+      "source_path": "source_snapshot://src/scib_benchmark/artifacts.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "3d346b591523434a9e53f0a4b53316ae90b6f9fe6913a6bbd7db105caccb4ef4",
+      "public_path": "src/scib_benchmark/audit.py",
+      "published_sha256": "3d346b591523434a9e53f0a4b53316ae90b6f9fe6913a6bbd7db105caccb4ef4",
+      "source_path": "source_snapshot://src/scib_benchmark/audit.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "f2852f88828b87562de8db79de5877635de96348bb5475e222821d38eca70f35",
+      "public_path": "src/scib_benchmark/baseline_runners.py",
+      "published_sha256": "f2852f88828b87562de8db79de5877635de96348bb5475e222821d38eca70f35",
+      "source_path": "source_snapshot://src/scib_benchmark/baseline_runners.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "e2efb3d7b6df6bbedacc7e59ae2cccbb61a4d0190a2625da2a8a326b3191fa7e",
+      "public_path": "src/scib_benchmark/config.py",
+      "published_sha256": "e2efb3d7b6df6bbedacc7e59ae2cccbb61a4d0190a2625da2a8a326b3191fa7e",
+      "source_path": "source_snapshot://src/scib_benchmark/config.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "672f6103fcf51afa385b7632cc5fb3e0abe4ff0da39ab9d7803aefe64cf8c0f2",
+      "public_path": "src/scib_benchmark/data.py",
+      "published_sha256": "672f6103fcf51afa385b7632cc5fb3e0abe4ff0da39ab9d7803aefe64cf8c0f2",
+      "source_path": "source_snapshot://src/scib_benchmark/data.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "10084ac4d4730ba37dfab8566159d362c2a0de01a2ca3a9d620d53e92646347a",
+      "public_path": "src/scib_benchmark/evaluation.py",
+      "published_sha256": "10084ac4d4730ba37dfab8566159d362c2a0de01a2ca3a9d620d53e92646347a",
+      "source_path": "source_snapshot://src/scib_benchmark/evaluation.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "c8b6884439ed84d6e85cce4e2d4dd1befe8a7166f167c4d5b0745946169ee1bc",
+      "public_path": "src/scib_benchmark/scib_contract.py",
+      "published_sha256": "c8b6884439ed84d6e85cce4e2d4dd1befe8a7166f167c4d5b0745946169ee1bc",
+      "source_path": "source_snapshot://src/scib_benchmark/scib_contract.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "84f2f5fc36039ce8806eed82d400bd3314c2ceaad319c629c7d4f4141e913142",
+      "public_path": "src/scib_benchmark/scib_runner.py",
+      "published_sha256": "84f2f5fc36039ce8806eed82d400bd3314c2ceaad319c629c7d4f4141e913142",
+      "source_path": "source_snapshot://src/scib_benchmark/scib_runner.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "ed817ab3becf07f6d6152ac3171b468aafb31e67c874cfd769cbbe605847dffd",
+      "public_path": "src/scib_benchmark/scib_scoring.py",
+      "published_sha256": "ed817ab3becf07f6d6152ac3171b468aafb31e67c874cfd769cbbe605847dffd",
+      "source_path": "source_snapshot://src/scib_benchmark/scib_scoring.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "8b72ae182cf47bd8913bd9031fac699513e1e64414233ef4a3ab11cc1e4f1d30",
+      "public_path": "src/scib_benchmark/scib_worker.py",
+      "published_sha256": "8b72ae182cf47bd8913bd9031fac699513e1e64414233ef4a3ab11cc1e4f1d30",
+      "source_path": "source_snapshot://src/scib_benchmark/scib_worker.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "29453660a95c6806e5324b21a23c23ef8c5f0bb4ded7e05de19de71a72f558cf",
+      "public_path": "src/scib_benchmark/solar_adapter.py",
+      "published_sha256": "29453660a95c6806e5324b21a23c23ef8c5f0bb4ded7e05de19de71a72f558cf",
+      "source_path": "source_snapshot://src/scib_benchmark/solar_adapter.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "8ad58f70215bed929eec195bfa4f5dc611a30d9b04a2643a122059b248ec259a",
+      "public_path": "src/scib_benchmark/solar_worker.py",
+      "published_sha256": "8ad58f70215bed929eec195bfa4f5dc611a30d9b04a2643a122059b248ec259a",
+      "source_path": "source_snapshot://src/scib_benchmark/solar_worker.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "c51c0720fb88015bd8be021cd18160b05ea8570735b10ce8388eded34c687b0e",
+      "public_path": "src/scib_benchmark/splits.py",
+      "published_sha256": "c51c0720fb88015bd8be021cd18160b05ea8570735b10ce8388eded34c687b0e",
+      "source_path": "source_snapshot://src/scib_benchmark/splits.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "0f41472e7eab38ab8f8ac3c67c06da072668837a97c1a7f5a5a9f4616157802c",
+      "public_path": "src/scib_data/__init__.py",
+      "published_sha256": "0f41472e7eab38ab8f8ac3c67c06da072668837a97c1a7f5a5a9f4616157802c",
+      "source_path": "source_snapshot://src/scib_data/__init__.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "8ab1d205270c9e7045529f2fdbd401b1a1742418f104f04decd5471ca926966e",
+      "public_path": "src/scib_data/manifest.py",
+      "published_sha256": "8ab1d205270c9e7045529f2fdbd401b1a1742418f104f04decd5471ca926966e",
+      "source_path": "source_snapshot://src/scib_data/manifest.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "6a3713591e0b35e6dfef126dc983e48faf0e45647fa41554372d98b910b73d94",
+      "public_path": "src/scib_data/validate.py",
+      "published_sha256": "6a3713591e0b35e6dfef126dc983e48faf0e45647fa41554372d98b910b73d94",
+      "source_path": "source_snapshot://src/scib_data/validate.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "b37dd3207274f360b990f567921dbc4264c47ec62d3147bc28f57d552bee6659",
+      "public_path": "adapters/sclsc_v1_1.py",
+      "published_sha256": "b37dd3207274f360b990f567921dbc4264c47ec62d3147bc28f57d552bee6659",
+      "source_path": "source_snapshot://adapters/sclsc_v1_1.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "analysis_revision": 3,
+      "original_sha256": "c4b719b908c9ae44dfc2f118ea70401434352cc9d32cb66877f7d2ef8ade56d2",
+      "public_path": "scripts/build_experiment_v1_2_tables.py",
+      "published_sha256": "c4b719b908c9ae44dfc2f118ea70401434352cc9d32cb66877f7d2ef8ade56d2",
+      "source_path": "analysis_source://v3/scripts/build_experiment_v1_2_tables.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "analysis_revision": 3,
+      "original_sha256": "44695a881151e232ab47e4154b75b53a31d58ec6f094f70cf10b721cbbc6974f",
+      "public_path": "scripts/build_experiment_v1_2_figures.py",
+      "published_sha256": "44695a881151e232ab47e4154b75b53a31d58ec6f094f70cf10b721cbbc6974f",
+      "source_path": "analysis_source://v3/scripts/build_experiment_v1_2_figures.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "analysis_revision": 3,
+      "original_sha256": "e3d0074e3e8d24f3ab1f3adfeb04218a9b977f81cf3b4a65e558a8d4d374778e",
+      "public_path": "scripts/score_experiment_v1_2.py",
+      "published_sha256": "e3d0074e3e8d24f3ab1f3adfeb04218a9b977f81cf3b4a65e558a8d4d374778e",
+      "source_path": "analysis_source://v3/scripts/score_experiment_v1_2.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "9ffade734e0f3b4bffbeb88ca07e4e9202b4abe8b19f4e8bdd2cea8e5b529773",
+      "public_path": "scripts/biovalid_ref_query_joint.py",
+      "published_sha256": "624ed64519a498452f18f8759a0d24cd1ccfa9cedd83f8e30eda884a2357372c",
+      "source_path": "analysis_source://scripts/biovalid_ref_query_joint.py",
+      "transformation": "portable_public_adaptation; original hash is not the published hash"
+    },
+    {
+      "original_sha256": "a23b6eaf050758a7fe7ec4db1e396d1a7bab7dfb1c451485dd332ed8fd51d866",
+      "public_path": "scripts/paper_scib_worker.py",
+      "published_sha256": "a23b6eaf050758a7fe7ec4db1e396d1a7bab7dfb1c451485dd332ed8fd51d866",
+      "source_path": "analysis_source://scripts/paper_scib_worker.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "13563831c179f634a4accf4916cf665d550dbd52c9ef3d9ca62fcdfd4984381b",
+      "public_path": "scripts/check_paper_scib_environment.py",
+      "published_sha256": "13563831c179f634a4accf4916cf665d550dbd52c9ef3d9ca62fcdfd4984381b",
+      "source_path": "analysis_source://scripts/check_paper_scib_environment.py",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "98af8b6d73c3a6c8446ea0a9f6c6a4267e603d11d3a7f4b492cc512303395f1e",
+      "public_path": "scripts/install_paper_scib.sh",
+      "published_sha256": "98af8b6d73c3a6c8446ea0a9f6c6a4267e603d11d3a7f4b492cc512303395f1e",
+      "source_path": "analysis_source://scripts/install_paper_scib.sh",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "106ab8301ff1f44cab9c56e353dc6553924d6155a1bf584cadfb1be05b39c6d0",
+      "public_path": "scripts/install_scib_kbet.sh",
+      "published_sha256": "106ab8301ff1f44cab9c56e353dc6553924d6155a1bf584cadfb1be05b39c6d0",
+      "source_path": "analysis_source://scripts/install_scib_kbet.sh",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "f531faa70a8b1e733df449c9ddd6573d3ea55b19483de8a6b08fa2aba3ef7620",
+      "public_path": "environments/solar/pyproject.toml",
+      "published_sha256": "f531faa70a8b1e733df449c9ddd6573d3ea55b19483de8a6b08fa2aba3ef7620",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/pyproject.toml",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "0748795c03397f06236db6b59cd658daf69fcaef460060045a6fa32073efe75e",
+      "public_path": "environments/solar/uv.lock",
+      "published_sha256": "0748795c03397f06236db6b59cd658daf69fcaef460060045a6fa32073efe75e",
+      "source_path": "source_snapshot://solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/uv.lock",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "545ba146f2f8da64a79598386bcaba3f8496a2c8169d30a7995c36fa39399a5c",
+      "public_path": "environments/analysis/pyproject.toml",
+      "published_sha256": "545ba146f2f8da64a79598386bcaba3f8496a2c8169d30a7995c36fa39399a5c",
+      "source_path": "source_snapshot://pyproject.toml",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "3902c76bbe8efcb812f37be27b3f39c8e00dd9bec6f164a7713a89c41dbc4962",
+      "public_path": "environments/analysis/uv.lock",
+      "published_sha256": "3902c76bbe8efcb812f37be27b3f39c8e00dd9bec6f164a7713a89c41dbc4962",
+      "source_path": "source_snapshot://uv.lock",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "37423e46b03777e5b70a35e2492479dd3ea077cfe79c8b096f92f9c56e8491ac",
+      "public_path": "environments/sclsc-v1_1/pyproject.toml",
+      "published_sha256": "37423e46b03777e5b70a35e2492479dd3ea077cfe79c8b096f92f9c56e8491ac",
+      "source_path": "source_snapshot://environments/sclsc-v1_1/pyproject.toml",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "b736807f999fc5bcdc566dca7b9d30ab177728df65096f099982295e466d2b7b",
+      "public_path": "environments/sclsc-v1_1/uv.lock",
+      "published_sha256": "b736807f999fc5bcdc566dca7b9d30ab177728df65096f099982295e466d2b7b",
+      "source_path": "source_snapshot://environments/sclsc-v1_1/uv.lock",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "86465538804c22d60bb78b5a62bbb47688de26132067822d004b4e672b7bf543",
+      "public_path": "environments/scib-paper/pixi.toml",
+      "published_sha256": "86465538804c22d60bb78b5a62bbb47688de26132067822d004b4e672b7bf543",
+      "source_path": "source_snapshot://environments/scib-paper/pixi.toml",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "9fbdc1dd3a9c39607163dc2dfd81f5fb7055d8adde5c485d7a092b85fa504e00",
+      "public_path": "environments/scib-paper/pixi.lock",
+      "published_sha256": "9fbdc1dd3a9c39607163dc2dfd81f5fb7055d8adde5c485d7a092b85fa504e00",
+      "source_path": "source_snapshot://environments/scib-paper/pixi.lock",
+      "transformation": "unchanged_bytes"
+    },
+    {
+      "original_sha256": "5bdb7b19df5dbc846037297df18848b7bcab4f7091df66d1d6ed5641c83007d1",
+      "public_path": "configs/benchmark_v1_2_dim30.yaml",
+      "published_sha256": "0b213542ac5bd4d2417fefe4a89883e33e251a5b31ec6bffd830149e54deb022",
+      "source_path": "source_snapshot://configs/benchmark_v1_2_dim30.yaml",
+      "transformation": "portable configuration/import adaptation; numerical contract retained"
+    },
+    {
+      "original_sha256": "c8d42e53034aba63ba3eaea49af215736328179d3d7fa39f889bfcd6b4bf0bb5",
+      "public_path": "configs/scib_datasets.yaml",
+      "published_sha256": "d9e9b9f39d01b14c6db1004dbc011e63c968c6719d895c3ea21aba69e3970652",
+      "source_path": "analysis_source://configs/scib_datasets.yaml",
+      "transformation": "portable configuration/import adaptation; numerical contract retained"
+    },
+    {
+      "original_sha256": "0d9e7edd574c6beac6e8fd2e25385592140e65914bcd677a4645bf7142dbbd37",
+      "public_path": "configs/experiment_v1_2.yaml",
+      "published_sha256": "9e29da28dec22d9ac91731da0758c56e522dedaac345135e60862ce7edb7c122",
+      "source_path": "analysis_source://configs/experiment_v1_2.yaml",
+      "transformation": "portable configuration/import adaptation; numerical contract retained"
+    },
+    {
+      "original_sha256": "ffaee692f68873ff9291c1ba660d50e4e0bb7b66b78a32a6a9f005cc62f28ef1",
+      "public_path": "scripts/audit_solar_numerics.py",
+      "published_sha256": "3424b34e0f9baf68e0d8662bbd62bb268869649f0adfc34729b1eed8f6b599e1",
+      "source_path": "source_snapshot://tests/test_solar_empty_positive_v1_2.py",
+      "transformation": "portable configuration/import adaptation; numerical contract retained"
+    },
+    {
+      "public_path": "scripts/experiment_v1_2.py",
+      "published_sha256": "650a5ef0f10417ec2ffaf03fb8fa9a09aca827ed92de4ba5c4e0a5f648a969b1",
+      "source_path": "public_v1.2_implementation",
+      "transformation": "new portable orchestration; not the historical execution source"
+    },
+    {
+      "public_path": "scripts/materialize_experiment_v1_2.py",
+      "published_sha256": "466ba6f0183ca100172fbc37e40b6d699a00d7e8792c66f0322d4ed5df396096",
+      "source_path": "public_v1.2_implementation",
+      "transformation": "new portable orchestration; not the historical execution source"
+    },
+    {
+      "public_path": "scripts/check_method_environment.py",
+      "published_sha256": "147a421d5a0a9491bd5b164526640c17718d0f4779a1a0c055f2c6f00742c8a8",
+      "source_path": "public_v1.2_implementation",
+      "transformation": "new portable orchestration; not the historical execution source"
+    },
+    {
+      "public_path": "tests/test_release_boundaries.py",
+      "published_sha256": "a282a389451f5b6700d549b438c9bb9b4b4ee1878a0ac3b3ffd6ae35a0bdd25f",
+      "source_path": "public_v1.2_implementation",
+      "transformation": "regressions for executable virtual-environment identity and safe verified extraction"
+    }
+  ],
+  "release": "v1.2",
+  "schema_version": 1,
+  "training_source_role": "immutable execution snapshot; original frozen snapshot is not rewritten"
+}

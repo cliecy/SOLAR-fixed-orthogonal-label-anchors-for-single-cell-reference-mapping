@@ -1,0 +1,88 @@
+schema_version: 1
+version: v1.2
+datasets:
+  immune_cell_human:
+  - 10X
+  - Oetjen_A
+  - Villani
+  lung_atlas:
+  - '3'
+  - '4'
+  - B1
+  pancreas:
+  - fluidigmc1
+  - inDrop2
+  - inDrop3
+seeds:
+- 40
+- 41
+- 42
+- 43
+- 44
+preprocessing:
+  fitting_population: complete_outer_reference_before_internal_validation
+  feature_profile: hvg2000_pca40
+  input_layer: X
+  hvg_count: 2000
+  solar_pca_components: 40
+  sclsc_input: normalized_X_not_complete_original_raw_count_preprocessing
+  internal_split:
+    solar: seeded_torch_random_split_round_validation_count
+    sclsc: seeded_StratifiedShuffleSplit_90_10
+  historical_split_note: Reconstructed SOLAR internal IDs are not recorded historical
+    IDs; do not claim pure dimension causality if identity cannot be certified.
+evaluation:
+  classifier: distance_weighted_15nn
+  n_neighbors: 15
+  metric: minkowski
+  p: 2
+  macro_f1_labels: unique_query_true_labels
+  zero_division: 0
+  unseen_reference_classes: retain_and_score_actual_predictions
+  official_scib_backend: paper_scib_0_2_0
+  official_scib_commit: e2a37e0ed63dc34b60aa535cc656400552af757a
+  kbet_commit: afc5f431bcbefd73267acc066a0f2e4eaa10a355
+  trustworthiness:
+    source_components: 50
+    neighbors: 15
+    max_cells: 6000
+    sample_seed: 40
+    minimum_cells: 31
+    datasets:
+    - immune_cell_human
+    - lung_atlas
+    populations:
+    - reference
+    - query
+    - joint
+  pseudotime:
+    dataset: immune_cell_human
+    field: dpt_pseudotime
+    implementation: scripts/biovalid_ref_query_joint.py::pseudotime_smoothness
+    neighbors: 15
+  new_composite: false
+  within_label_silhouette:
+    sample_seed: 0
+    max_cells_per_label: 8000
+    fields:
+      immune_cell_human: [study, sample_ID]
+      lung_atlas: [donor, patientGroup]
+aggregation:
+  required_seed_count: 5
+  sample_sd_ddof: 1
+  deterministic_pca_sd: not_applicable
+  dataset_weighting: equal
+  within_dataset_weighting: equal_common_valid_batches
+  missing_policy: paired_nonmissing_batches_no_zero_imputation
+  independent_biological_replicates: false
+bundle_dir: release/bundle
+attachment_dir: release/attachments
+bootstrap_record: release/bootstrap.json
+data_dir: data/scib/raw
+output_root: work/v1_2
+mode: released
+solar_python: environments/solar/.venv/bin/python
+sclsc_python: environments/sclsc-v1_1/.venv/bin/python
+analysis_python: environments/analysis/.venv/bin/python
+solar_config: configs/benchmark_v1_2_dim30.yaml
+dataset_manifest: configs/scib_datasets.yaml

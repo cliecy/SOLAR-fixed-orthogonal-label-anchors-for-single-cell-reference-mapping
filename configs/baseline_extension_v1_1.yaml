@@ -1,0 +1,150 @@
+schema_version: 1
+purpose: formal_v1_1_baseline_extension
+scope_note: >-
+  Adds SCLSC to the three-real-dataset held-out-batch main comparison and
+  reports Symphony and scmap-cell as supplementary baselines. This contract
+  does not modify manuscript text.
+source_evidence:
+  authority: local_final_paper_package_then_public_github_release
+  local_final_evidence_directory: SOLAR_BMC_final_evidence_20260902_v4
+  local_files_sha256:
+    raw_scib_metrics_all_runs_complete.csv: d0e65f5b2a03f77525a54e82281e5ac69c05596a865cb518acfde07ccdeba97a
+    classifier_unified_summary.csv: 9d297e8b6c09ecfb4d3045674df4a9fcdfec5c8bf096a9a571860ecd6a43153e
+    aggregation_sensitivity_3_real_datasets_with_kbet.csv: a00bdd955fc9fca2cd9547f159791cb8e26dd24acc0f15d3952ec008b9955579
+  public_repository: https://github.com/cliecy/SOLAR-Label-anchor-contrastive-learning-for-annotation-preserving-single-cell-integration
+  source_release: v1.0.1
+  source_release_asset: Additional_file_2_Reproducibility_Package.zip
+  source_release_asset_sha256: 7c6dd3b5b18dc4d1ae93b5b841e3262b31c0a43cae6c47387a48c43fe2494a75
+execution_workspace:
+  repository: https://github.com/cliecy/scib-reproduce
+  source_base_commit: c365a37828421073ce083552d80f1002580a68f1
+  experiment_implementation_commit: 67b23e44e722e17c1d052fbf1a8be4bfc83465f1
+  source_benchmark_root: outputs/benchmark/solar_scib_rebuttal_v1
+  dataset_manifest: configs/scib_datasets.yaml
+  preprocessing_profile: hvg2000_pca40
+  feature_scope: reference_only
+  input_expression_layer: X
+  reliable_raw_counts_across_all_three_datasets: false
+  formal_output_root: outputs/baseline_extension_v1_1
+  scib_run_id: baseline_extension_v1_1
+
+datasets:
+  pancreas:
+    heldout_batches: [fluidigmc1, inDrop2, inDrop3]
+  immune_cell_human:
+    heldout_batches: [10X, Oetjen_A, Villani]
+  lung_atlas:
+    heldout_batches: ['3', '4', B1]
+
+methods:
+  sclsc_refonly:
+    table: main
+    seeds: [40, 41, 42, 43, 44]
+    output_type: joint_embedding
+    embedding_dimensions: 16
+    source_repository: https://github.com/yaozhong/SCLSC
+    source_repository_commit: 2e827dfebb793dffb548fd297e5c4e70fa40692f
+    source_paper_doi: 10.1038/s41598-023-50185-2
+    fit_scope: reference_only_with_reference_internal_validation
+    training:
+      encoder: MLP_2000_512_128_16
+      objective: official_instance_type_contrastive_loss
+      margin: 1.0
+      batch_size: 256
+      learning_rate: 0.001
+      optimizer: Adam
+      max_epochs: 100
+      data_loader_shuffle: false
+      validation_split: seeded_stratified_90_10_within_reference
+      validation_every_epochs: 2
+      early_stopping_min_delta: 0.01
+      early_stopping_patience: 10
+      early_stopping_selection_basis: pinned_repository_default
+      published_methods_patience: 5
+      restore_best_checkpoint: false
+    preprocessing_deviation: >-
+      The official model, objective, optimizer, architecture, 2,000-input-gene
+      width, 16-dimensional output, and batch-split training/validation design
+      are retained. Because reliable raw counts are unavailable across the
+      frozen pancreas, immune, and lung inputs, the shared benchmark's existing
+      normalized X and reference-only 2,000-HVG list replace count filtering,
+      analytic-Pearson-residual HVG selection, normalization, and log1p.
+    annotation_readouts:
+      main: common_distance_weighted_15nn_fit_on_all_benchmark_reference_cells
+      secondary: official_unweighted_10nn_fit_on_internal_training_cells
+  symphony_matched_pca40:
+    table: supplementary
+    seeds: [40]
+    output_type: joint_embedding
+    embedding_dimensions: 40
+    source_repository: https://github.com/immunogenomics/symphony
+    source_repository_commit: 6c8c4f2e9fa6bb6379627a28880da2857f405056
+    executed_package: symphony_0.1.2_with_harmony_1.2.4
+    fit_scope: reference_only_analytic_query_mapping
+    reuse_audited_outputs_from: outputs/baseline_extension_rapid/symphony_matched_pca40
+    preprocessing_deviation: >-
+      The benchmark's reference-only 2,000-HVG list and center-only randomized
+      sklearn PCA40 at fixed seed 40 replace Symphony's default feature
+      selection and variance scaling. The official Harmony reference builder
+      and Symphony mapQuery path are retained. This is a single-seed
+      supplementary result and does not support a variability claim.
+    annotation_readout: common_distance_weighted_15nn_fit_on_all_benchmark_reference_cells
+  scmap_cell:
+    table: supplementary
+    seeds: [40]
+    output_type: native_annotation
+    source_repository: https://git.bioconductor.org/packages/scmap
+    source_repository_commit: 8fee1fcd119b066e3d9322f633b5d686b90cca47
+    executed_package: scmap_1.32.0
+    fit_scope: reference_only_native_projection
+    reuse_audited_outputs_from: outputs/baseline_extension_rapid/scmap_cell
+    preprocessing_deviation: >-
+      Official setFeatures uses the benchmark reference-only HVG list because
+      reliable raw counts are unavailable across all three datasets; normalized
+      X is passed as logcounts without expm1 reconstruction.
+    annotation_readout: official_scmap_cell_with_native_abstention
+
+evaluation:
+  query_labels_visible_to_models: false
+  query_expression_used_for_reference_fit: false
+  query_expression_used_for_parameter_update: false
+  common_classifier:
+    n_neighbors: 15
+    weights: distance
+    metric: sklearn_default_minkowski_p2
+  sclsc_native_classifier:
+    n_neighbors: 10
+    weights: uniform
+    fitting_cells: internal_training_subset_only
+  scmap_unassigned_label: __unassigned__
+  scmap_unassigned_counts_as_incorrect: true
+  annotation_metrics: [macro_f1, balanced_accuracy]
+  official_scib:
+    methods: [sclsc_refonly, symphony_matched_pca40]
+    backend: paper_scib_0_2_0
+    scib_commit: e2a37e0ed63dc34b60aa535cc656400552af757a
+    kbet_commit: afc5f431bcbefd73267acc066a0f2e4eaa10a355
+    output_type: embed
+    neighbors: 15
+    scoring_population: every_dataset_cell_exactly_once_reference_then_query
+    expected_jobs: 54
+  aggregation:
+    main_cohort:
+      - solar_orthogonal
+      - unintegrated_pca_matched
+      - frozen_reference_scvi
+      - frozen_reference_scanvi
+      - sclsc_refonly
+    supplementary_embedding_cohort:
+      - solar_orthogonal
+      - unintegrated_pca_matched
+      - frozen_reference_scvi
+      - frozen_reference_scanvi
+      - sclsc_refonly
+      - symphony_matched_pca40
+    orderings: [A_per_replicate_scale, B_seedmean_then_scale, C_dataset_level_scale]
+    primary_includes_kbet: true
+    sensitivity_excludes_kbet: true
+    note: >-
+      Dataset-wise min-max scores are cohort-dependent. Main and supplementary
+      embedding cohorts are therefore regenerated and labelled separately.

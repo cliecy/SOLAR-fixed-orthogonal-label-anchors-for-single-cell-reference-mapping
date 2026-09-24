@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the SOLAR manuscript."
+title: "SOLAR: Fixed orthogonal label anchors for single-cell reference mapping"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/cliecy/SOLAR-fixed-orthogonal-label-anchors-for-single-cell-reference-mapping"
+authors:
+  - family-names: Chen
+    given-names: Minqi
+  - family-names: Zou
+    given-names: Guanjie
+  - family-names: Chen
+    given-names: Minrui
+  - family-names: Saigo
+    given-names: Hiroto
+  - family-names: Tsuda
+    given-names: Koji
+  - family-names: Liu
+    given-names: Lunxu

@@ -1,0 +1,268 @@
+--- public/src/SOLAR/_training.py
++++ historical/SOLAR_label_anchor/_training.py
+@@ -2,7 +2,7 @@
+ from __future__ import annotations
+ 
+ import copy
+-from typing import Any, Optional, Sequence
++from typing import Optional, Sequence
+ 
+ import numpy as np
+ import torch
+@@ -59,100 +59,62 @@
+     early_stopping_min_delta: float,
+     gradient_clip_norm: Optional[float],
+     anchor_dedup: bool = False,
+-) -> dict[str, Any]:
++) -> None:
+     best_val_loss = float("inf")
+     best_model_state = None
+     wait_counter = 0
+-    best_epoch = None
+-    stopped_early = False
+-    epochs_completed = 0
+-    history.setdefault("skipped_train_batches", [])
+-    history.setdefault("skipped_validation_batches", [])
+ 
+-    for epoch in range(1, max_epochs + 1):
++    for _ in range(max_epochs):
+         model.train()
+         train_losses: list[float] = []
+-        skipped_train = 0
+         for expressions, text_anchors, labels in train_loader:
+-            if not model.has_text_branch and len(set(labels)) == len(labels):
+-                skipped_train += 1
+-                optimizer.zero_grad(set_to_none=True)
+-                continue
+             expressions = expressions.to(device, non_blocking=True)
+             z_x, z_t = model(expressions, text_anchors, device)
+             features, feature_labels = assemble_contrastive_features(
+                 z_x, z_t, labels, text_anchors, anchor_dedup=anchor_dedup
+             )
+             loss = criterion(features, labels=feature_labels)
+-            if not torch.isfinite(loss):
+-                raise FloatingPointError("Non-finite training contrastive loss")
+ 
+             optimizer.zero_grad()
+             loss.backward()
+             if gradient_clip_norm is not None:
+-                torch.nn.utils.clip_grad_norm_(model.parameters(), gradient_clip_norm, error_if_nonfinite=True)
+-            elif any(p.grad is not None and not torch.isfinite(p.grad).all() for p in model.parameters()):
+-                raise FloatingPointError("Non-finite training gradient")
++                torch.nn.utils.clip_grad_norm_(model.parameters(), gradient_clip_norm)
+             optimizer.step()
+             train_losses.append(float(loss.item()))
+ 
+         avg_train_loss = float(np.mean(train_losses)) if train_losses else 0.0
+         history["train_loss"].append(avg_train_loss)
+-        history["skipped_train_batches"].append(skipped_train)
+-        epochs_completed = epoch
+ 
+         if val_loader is None:
+             continue
+ 
+         model.eval()
+         val_losses: list[float] = []
+-        skipped_validation = 0
+         with torch.no_grad():
+             for expressions, text_anchors, labels in val_loader:
+-                if not model.has_text_branch and len(set(labels)) == len(labels):
+-                    skipped_validation += 1
+-                    continue
+                 expressions = expressions.to(device, non_blocking=True)
+                 z_x, z_t = model(expressions, text_anchors, device)
+                 features, feature_labels = assemble_contrastive_features(
+                     z_x, z_t, labels, text_anchors, anchor_dedup=anchor_dedup
+                 )
+                 val_loss = criterion(features, labels=feature_labels)
+-                if not torch.isfinite(val_loss):
+-                    raise FloatingPointError("Non-finite validation contrastive loss")
+                 val_losses.append(float(val_loss.item()))
+ 
+-        history["skipped_validation_batches"].append(skipped_validation)
+-        if not val_losses:
+-            raise ValueError("Validation epoch contains no valid positive contrastive pairs")
+-        avg_val_loss = float(np.mean(val_losses))
++        avg_val_loss = float(np.mean(val_losses)) if val_losses else 0.0
+         history["val_loss"].append(avg_val_loss)
+ 
++        if not np.isfinite(avg_val_loss):
++            break
++
+         if avg_val_loss < (best_val_loss - early_stopping_min_delta):
+             best_val_loss = avg_val_loss
+             wait_counter = 0
+             best_model_state = copy.deepcopy(model.state_dict())
+-            best_epoch = epoch
+         else:
+             wait_counter += 1
+             if wait_counter >= early_stopping_patience:
+-                stopped_early = True
+                 break
+ 
+     if best_model_state is not None:
+         model.load_state_dict(best_model_state)
+-    return {
+-        "epoch_numbering": "one_based",
+-        "epochs_completed": epochs_completed,
+-        "selected_epoch": best_epoch if best_model_state is not None else epochs_completed,
+-        "best_validation_epoch": best_epoch,
+-        "best_validation_loss": best_val_loss if best_epoch is not None else None,
+-        "restored_best_checkpoint": best_model_state is not None,
+-        "stopped_early": stopped_early,
+-        "finite_gradients_checked_before_every_update": True,
+-        "selection_rule": (
+-            "validation_loss_improvement_exceeding_min_delta"
+-            if val_loader is not None else "last_epoch_no_validation"
+-        ),
+-    }
+ 
+--- public/src/SOLAR/src/loss.py
++++ historical/SOLAR_label_anchor/src/loss.py
+@@ -115,16 +115,14 @@
+         )
+         mask = mask * logits_mask
+ 
+-        # Inactive rows retain zero weight in the historical all-row mean.
+-        # Define their denominator before log, rather than multiplying log(0)
+-        # by zero (which produces NaN values and gradients for singleton pools).
+-        mask_sum = mask.sum(1)
+-        active = mask_sum > 0
++        # 6. 计算 Log Prob
+         exp_logits = torch.exp(logits) * logits_mask
+-        denominator = exp_logits.sum(1, keepdim=True)
+-        denominator = torch.where(active[:, None], denominator, torch.ones_like(denominator))
+-        log_prob = logits - torch.log(denominator)
+-        mean_log_prob_pos = (mask * log_prob).sum(1) / mask_sum.clamp_min(1)
++        log_prob = logits - torch.log(exp_logits.sum(1, keepdim=True))
++
++        # 7. 计算 Loss
++        mask_sum = mask.sum(1)
++        mask_sum = torch.where(mask_sum == 0, torch.ones_like(mask_sum), mask_sum)
++        mean_log_prob_pos = (mask * log_prob).sum(1) / mask_sum
+ 
+         loss = - (self.temperature / self.base_temperature) * mean_log_prob_pos
+         return self._reduce_loss(
+--- public/src/SOLAR/api.py
++++ historical/SOLAR_label_anchor/api.py
+@@ -8,7 +8,7 @@
+ import anndata as ad
+ import numpy as np
+ import torch
+-from torch.utils.data import DataLoader, Subset
++from torch.utils.data import DataLoader
+ 
+ from ._checkpoint import load_metadata, load_weights, save_checkpoint
+ from ._data import (
+@@ -146,8 +146,6 @@
+         self.model = self._build_model().to(self.device)
+         self.history: dict[str, list[float]] = {"train_loss": [], "val_loss": []}
+         self.training_config: dict[str, Any] = {}
+-        self.internal_reference_split: list[dict[str, Any]] = []
+-        self.training_selection: dict[str, Any] = {}
+         self.is_trained = False
+ 
+     def _build_class_vocab(self, adata: ad.AnnData) -> None:
+@@ -224,23 +222,6 @@
+             num_workers,
+             self.model_config.imbalance_mode,
+         )
+-        # Read the actual loader subsets without iterating a sampler or drawing RNG.
+-        cell_ids = self.adata.obs_names.astype(str).to_numpy()
+-        self.internal_reference_split = []
+-        for role, loader in (("train", train_loader), ("validation", val_loader)):
+-            if loader is None:
+-                continue
+-            loader_dataset = loader.dataset
+-            if loader_dataset is dataset:
+-                indices = range(len(dataset))
+-            elif isinstance(loader_dataset, Subset) and loader_dataset.dataset is dataset:
+-                indices = loader_dataset.indices
+-            else:
+-                raise RuntimeError("Cannot map DataLoader dataset to training cell IDs")
+-            self.internal_reference_split.extend(
+-                {"barcode": str(cell_ids[int(index)]), "role": role, "dataset_index": int(index)}
+-                for index in indices
+-            )
+         class_weights = None
+         if self.model_config.imbalance_mode == "weighted":
+             class_weights = inverse_frequency_weights(dataset.labels)
+@@ -269,7 +250,7 @@
+             "imbalance_mode": self.model_config.imbalance_mode,
+         }
+         self.history = {"train_loss": [], "val_loss": []}
+-        self.training_selection = run_epochs(
++        run_epochs(
+             self.model,
+             self.device,
+             criterion,
+@@ -356,8 +337,6 @@
+             ),
+             "training_config": copy.deepcopy(self.training_config),
+             "history": copy.deepcopy(self.history),
+-            "internal_reference_split": copy.deepcopy(self.internal_reference_split),
+-            "training_selection": copy.deepcopy(self.training_selection),
+             "is_trained": self.is_trained,
+         }
+         save_checkpoint(Path(dir_path), self.model.state_dict(), metadata)
+@@ -386,8 +365,6 @@
+         obj.model.load_state_dict(load_weights(Path(dir_path), obj.device))
+         obj.training_config = metadata.get("training_config", {})
+         obj.history = metadata.get("history", {"train_loss": [], "val_loss": []})
+-        obj.internal_reference_split = metadata.get("internal_reference_split", [])
+-        obj.training_selection = metadata.get("training_selection", {})
+         obj.is_trained = bool(metadata.get("is_trained", True))
+         return obj
+ 
+--- public/src/SOLAR/benchmark/adapter.py
++++ historical/SOLAR_label_anchor/benchmark/adapter.py
+@@ -1,6 +1,5 @@
+ from __future__ import annotations
+ 
+-import csv
+ import json
+ from dataclasses import asdict, dataclass
+ from pathlib import Path
+@@ -79,19 +78,6 @@
+             checkpoint = output / "model"
+             if isinstance(self.model, SOLARModel):
+                 self.model.save(checkpoint)
+-                with (output / "internal_reference_split.csv").open("w", newline="") as handle:
+-                    writer = csv.DictWriter(handle, fieldnames=["barcode", "role", "dataset_index"])
+-                    writer.writeheader()
+-                    writer.writerows(self.model.internal_reference_split)
+-                (output / "training_history.json").write_text(
+-                    json.dumps({
+-                        "schema_version": 1,
+-                        "split_source": "actual_dataloader_datasets",
+-                        "history": self.model.history,
+-                        **self.model.training_selection,
+-                        "training_config": self.model.training_config,
+-                    }, indent=2, sort_keys=True) + "\n"
+-                )
+             else:
+                 checkpoint.mkdir(parents=True, exist_ok=True)
+                 torch.save(self.model.state_dict(), checkpoint / "control_model.pt")
+@@ -234,8 +220,6 @@
+             "semantic_mode": model.model_config.semantic_mode,
+             "model_kwargs": model_kwargs,
+             "history": history,
+-            "training_selection": model.training_selection,
+-            "internal_split_source": "actual_dataloader_datasets",
+             "anchor_diagnostics": diagnostics,
+             "classifier_head_used_for_evaluation": False,
+         }
+--- public/src/SOLAR/benchmark/variants.py
++++ historical/SOLAR_label_anchor/benchmark/variants.py
+@@ -94,9 +94,9 @@
+         "solar_orthogonal",
+         "reviewer_main",
+         "reviewer_fairness_and_lobo_matrix",
+-        "Controlled orthogonal anchors at the configured embedding dimension "
+-        "(reviewer main).",
++        "Controlled 128-dimensional orthogonal anchors (reviewer main).",
+         semantic_mode="onehot",
++        embedding_dim=128,
+         anchor_geometry="orthogonal",
+         anchor_dedup=False,
+         imbalance_mode="natural",

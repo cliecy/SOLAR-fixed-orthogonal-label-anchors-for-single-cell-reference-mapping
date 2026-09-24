@@ -1,0 +1,73 @@
+schema_version: 1
+figshare:
+  record_id: '12420968'
+  doi: 10.6084/m9.figshare.12420968
+  api_url: https://api.figshare.com/v2/articles/12420968
+  landing_page: https://doi.org/10.6084/m9.figshare.12420968
+datasets:
+  pancreas:
+    display_name: Pancreas
+    source: scIB Figshare
+    figshare_record: '12420968'
+    figshare_file_id: 24539828
+    filename: human_pancreas_norm_complexBatch.h5ad
+    file_url: https://ndownloader.figshare.com/files/24539828
+    expected_size_bytes: 315955785
+    source_md5: 5aa155652b998c90395a0c9bd731b4b3
+    local_path: data/scib/raw/human_pancreas_norm_complexBatch.h5ad
+    checksum_sha256: 97e6dfd65553e4d10aa3ef5d904362970a75c677c31d70fabc9234191a09db8c
+    batch_key: tech
+    label_key: celltype
+    counts_location: null
+    normalized_location: null
+    status: downloaded
+    inspection_status: completed
+    benchmark_inclusion: included
+    decision_provenance:
+      decided_by: researcher
+      decision_date: '2026-07-18'
+      basis: Reproduce the original scIB baseline configuration.
+  immune_cell_human:
+    display_name: Immune cell human
+    source: scIB Figshare
+    figshare_record: '12420968'
+    figshare_file_id: 25717328
+    filename: Immune_ALL_human.h5ad
+    file_url: https://ndownloader.figshare.com/files/25717328
+    expected_size_bytes: 2064748344
+    source_md5: 482a6a3117432d41a46effd8376b8ee0
+    local_path: data/scib/raw/Immune_ALL_human.h5ad
+    checksum_sha256: 96709b5fa677d5eafc734793a7873a2c763453ba8abddad24c0fba39e0d7f2c8
+    batch_key: batch
+    label_key: final_annotation
+    counts_location: null
+    normalized_location: null
+    status: downloaded
+    inspection_status: completed
+    benchmark_inclusion: included
+    decision_provenance:
+      decided_by: researcher
+      decision_date: '2026-07-18'
+      basis: Reproduce the original scIB baseline configuration.
+  lung_atlas:
+    display_name: Lung atlas
+    source: scIB Figshare
+    figshare_record: '12420968'
+    figshare_file_id: 24539942
+    filename: Lung_atlas_public.h5ad
+    file_url: https://ndownloader.figshare.com/files/24539942
+    expected_size_bytes: 1019664664
+    source_md5: aac0832c3e3413ae279343f5de02a2c6
+    local_path: data/scib/raw/Lung_atlas_public.h5ad
+    checksum_sha256: 623f84435efdce9af31fc2be393ae7d2dfcf427414567b2fd994ea7422f5feeb
+    batch_key: batch
+    label_key: cell_type
+    counts_location: null
+    normalized_location: null
+    status: downloaded
+    inspection_status: completed
+    benchmark_inclusion: included
+    decision_provenance:
+      decided_by: researcher
+      decision_date: '2026-07-18'
+      basis: Reproduce the original scIB baseline configuration.

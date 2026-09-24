@@ -1,0 +1,290 @@
+schema_version: 1
+dataset_manifest: configs/scib_datasets.yaml
+output_root: outputs/benchmark
+datasets:
+- pancreas
+- immune_cell_human
+- lung_atlas
+- simulation_1
+- simulation_2
+protocol:
+  reference_fraction: 0.8
+  split_seeds:
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  label_fractions:
+  - 0.1
+  - 0.25
+  - 0.5
+  - 1.0
+  primary_label_fraction: 1.0
+  supervision_reporting: combined_table_with_explicit_protocol
+  generate_cross_protocol_ranking: false
+preprocessing:
+  hvg2000_pca40:
+    source: X
+    n_hvg: 2000
+    hvg_flavor: cell_ranger
+    batch_aware: true
+    n_components: 40
+    role: primary
+  full_pca40:
+    source: X
+    n_hvg: null
+    n_components: 40
+    role: sensitivity
+solar:
+  package_root: solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor
+  python: solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260719/SOLAR_label_anchor/.venv/bin/python
+  upstream_archive: solar-benchmark-kit/v2-label-anchor/SCMBench_SOLAR_label_anchor_benchmark_kit_20260901_seedfix.tar.gz
+  upstream_sha256: c6f0153e78eb8c65a99fd43610e5cbfac96f4d8101ac86340b8ac02fa33656d1
+  main_variant: solar_orthogonal
+  main_anchor_seed: 0
+  train:
+    hidden_dim: 512
+    embedding_dim: 128
+    dropout: 0.1
+    max_epochs: 50
+    batch_size: 512
+    learning_rate: 0.0001
+    weight_decay: 0.0
+    temperature: 0.07
+    margin: 0.2
+    train_size: 0.9
+    early_stopping_patience: 10
+    early_stopping_min_delta: 0.0001
+    gradient_clip_norm: 1.0
+    num_workers: 0
+solar_v2:
+  package_root: solar-scrna-paper/SOLAR_v2
+  python: solar-scrna-paper/SOLAR_v2/.venv/bin/python
+  upstream_archive: solar-scrna-paper/SOLAR_v2.tar.gz
+  upstream_sha256: f96d9f189d28ab5eb41971e561b44b807d59c3d166d2f7c6a00938447349c5e6
+  main_variant: SOLAR-onehot-rep-natural
+  methods:
+  - SOLAR-onehot-rep-natural
+  - SOLAR-random-rep-natural
+  - SOLAR-trainable-rep-natural
+  - SOLAR-centroid-rep-natural
+  train:
+    hidden_dim: 512
+    embedding_dim: 128
+    dropout: 0.1
+    max_epochs: 50
+    batch_size: 512
+    learning_rate: 0.0001
+    weight_decay: 0.0
+    temperature: 0.07
+    margin: 0.2
+    train_size: 0.9
+    early_stopping_patience: 10
+    early_stopping_min_delta: 0.0001
+    gradient_clip_norm: 1.0
+    num_workers: 0
+tracks:
+  core:
+    protocol: inductive_reference_query
+    supervision: reference_labels
+    methods:
+    - solar_orthogonal
+    - solar_orthogonal_uniq
+    - solar_none
+    - cross_entropy
+    - fixed_anchor_cosine
+    - SOLAR-onehot-rep-natural
+    - SOLAR-random-rep-natural
+    - SOLAR-trainable-rep-natural
+    - SOLAR-centroid-rep-natural
+    preprocessing:
+    - hvg2000_pca40
+    - full_pca40
+    train_seeds:
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    anchor_seeds:
+    - 0
+    label_fractions:
+    - 1.0
+  budget:
+    protocol: inductive_reference_query
+    supervision: partial_reference_labels
+    methods:
+    - solar_orthogonal
+    - solar_orthogonal_uniq
+    - solar_none
+    - cross_entropy
+    - fixed_anchor_cosine
+    preprocessing:
+    - hvg2000_pca40
+    - full_pca40
+    train_seeds:
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    anchor_seeds:
+    - 0
+    label_fractions:
+    - 0.1
+    - 0.25
+    - 0.5
+  geometry:
+    protocol: inductive_reference_query
+    supervision: reference_labels
+    methods:
+    - solar_geometry_orthogonal
+    - solar_geometry_simplex
+    - solar_geometry_gaussian
+    - solar_geometry_coherence_0.25
+    - solar_geometry_coherence_0.50
+    - solar_geometry_coherence_0.75
+    - solar_geometry_coherence_0.90
+    - solar_trainable
+    - solar_shuffled
+    preprocessing:
+    - hvg2000_pca40
+    train_seeds:
+    - 42
+    - 43
+    - 44
+    anchor_seeds:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    label_fractions:
+    - 1.0
+  heldout:
+    protocol: inductive_held_out_batch
+    supervision: reference_labels
+    methods:
+    - solar_orthogonal
+    - solar_orthogonal_uniq
+    - solar_none
+    preprocessing:
+    - hvg2000_pca40
+    train_seeds:
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    anchor_seeds:
+    - 0
+    label_fractions:
+    - 1.0
+  transductive_baselines:
+    protocol: transductive_scib
+    methods:
+    - harmony
+    - scanorama
+    - fastmnn
+    - bbknn
+    - scvi
+    - scanvi_all_labels
+    - scanvi_reference_labels
+    preprocessing:
+    - hvg2000_pca40
+    - full_pca40
+    fit_scopes:
+    - classic_full
+    - reference_only
+    train_seeds:
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    label_fractions:
+    - 1.0
+  inductive_baselines:
+    protocol: transductive_scib
+    methods:
+    - scvi_reference_mapping
+    - scanvi_reference_mapping
+    preprocessing:
+    - hvg2000_pca40
+    - full_pca40
+    fit_scopes:
+    - reference_only
+    train_seeds:
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    label_fractions:
+    - 1.0
+baselines:
+  scvi:
+    n_latent: 30
+    n_layers: 2
+    n_hidden: 128
+    max_epochs: 200
+    early_stopping: true
+    batch_size: 512
+  scanvi:
+    n_latent: 30
+    n_layers: 2
+    n_hidden: 128
+    max_epochs: 50
+    early_stopping: true
+    batch_size: 512
+  bbknn:
+    neighbors_within_batch: 3
+  fastmnn:
+    k: 20
+  scanorama:
+    batch_size: 5000
+evaluation:
+  knn_neighbors: 15
+  graph_neighbors: 15
+  metric_seed: 42
+  classifier: distance_weighted_knn
+  use_classifier_head: false
+  aggregate_score: true
+  aggregate_scope: provisional_current_cohort
+  official_scib:
+    enabled: true
+    backend: paper_scib_0_2_0
+    scib_commit: e2a37e0ed63dc34b60aa535cc656400552af757a
+    kbet_commit: afc5f431bcbefd73267acc066a0f2e4eaa10a355
+    environment_manifest: environments/scib-paper/pixi.toml
+    output_type: embed
+    neighbors: 15
+    lisi_subsample_percent: 50
+    lisi_cores: 1
+    task_timeout_seconds: 14400
+    kbet_python_fallback:
+      enabled: true
+      policy: on_legacy_failure
+      package_version: 0.5.10
+      neighbors: 50
+      random_state: 0
+      n_jobs: 1
+      alpha: 0.05
+      diffusion_n_comps: 100
+    datasets:
+      pancreas:
+        assay: expression
+        organism: human
+      immune_cell_human:
+        assay: expression
+        organism: human
+      lung_atlas:
+        assay: expression
+        organism: human
+      simulation_1:
+        assay: simulation
+        organism: null
+      simulation_2:
+        assay: simulation
+        organism: null
